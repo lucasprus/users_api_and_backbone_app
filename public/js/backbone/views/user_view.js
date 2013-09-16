@@ -1,4 +1,4 @@
-define(['backbone', '../models/user'], function (Backbone) {
+define(['backbone'], function (Backbone) {
     return Backbone.View.extend({
         tagName: "p",
         template: _.template('<span>Username: <%= username %></span><br /><span>Name: <%= name %></span><br /><span>Email: <%= email %></span><br /><span>Password: <%= password %></span><br /><span>Birthday: <%= new Date(birthday).toLocaleDateString() %></span><br /><span>Gender: <%= gender %></span><br /><span>Bio: <%= bio %></span><br /><button class="edit">Edit</button><button class="delete">Delete</button>'),

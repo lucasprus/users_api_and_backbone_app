@@ -241,6 +241,7 @@ public/js/backbone_router.js
 public/js/backbone_router_with_comments.js
 public/js/backbone_view.js
 public/js/main2.js
+public/js/main-built.js
 
 TODO.txt
 access.log
