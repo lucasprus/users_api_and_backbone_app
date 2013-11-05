@@ -48,11 +48,11 @@ npm install -g jslint
 JSLint your entire project. Run from project's root directory. Not meant to be run on node_modules, minified libraries, "require.js" and "main-built.js"
 
 ```bash
-find . \( -name "*.js" -o -name "*.json" \) -not -path "./node_modules*" -not -path "./public/js/lib*" -not -name "require.js" -not -name "main-built.js" -print0 | xargs -0 jslint --nomen --sloppy --devel --white --predef define --predef app --predef _ --predef $ --predef jQuery --predef requirejs --predef Backbone
+find . \( -name "*.js" -o -name "*.json" \) -not -path "./node_modules*" -not -path "./public/js/lib*" -not -name "require.js" -not -name "main-built.js" -print0 | xargs -0 jslint --nomen --sloppy --devel --white --regexp --predef define --predef app --predef _ --predef $ --predef jQuery --predef requirejs --predef Backbone
 ```
 
 Same with --browser (set to true)
 
 ```bash
-find . \( -name "*.js" -o -name "*.json" \) -not -path "./node_modules*" -not -path "./public/js/lib*" -not -name "require.js" -not -name "main-built.js" -print0 | xargs -0 jslint --nomen --sloppy --devel --white --browser --predef define --predef app --predef _ --predef $ --predef jQuery --predef requirejs --predef Backbone
+find . \( -name "*.js" -o -name "*.json" \) -not -path "./node_modules*" -not -path "./public/js/lib*" -not -name "require.js" -not -name "main-built.js" -print0 | xargs -0 jslint --nomen --sloppy --devel --white --browser --regexp --predef define --predef app --predef _ --predef $ --predef jQuery --predef requirejs --predef Backbone
 ```
