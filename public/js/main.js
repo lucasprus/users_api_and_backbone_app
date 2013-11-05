@@ -30,8 +30,8 @@ requirejs(['backbone_files/routers/router'],
         // console.log(Backbone);
         jQuery(function () {
             // new Router();
-            // var app = new Router();
-            app = new Router({
+            // app = new Router();
+            APP = new Router({
                 log: true
             });
             Backbone.history.start();

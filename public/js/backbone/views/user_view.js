@@ -20,15 +20,13 @@ define(['backbone', 'text!templates/user.html', 'text!templates/user_no_edit.htm
             }
             return this;
         },
-        edit: function () {
-            app.userEditView.render();
-        },
-        delete_user: function () {
-            app.deleteUser();
-        },
         events: {
-            "click button.edit": "edit",
-            "click button.delete": "delete_user"
+            "click button.edit": function () {
+                this.trigger('user_view:click:button.edit');
+            },
+            "click button.delete": function () {
+                this.trigger('user_view:click:button.delete');
+            }
         }
     });
 });

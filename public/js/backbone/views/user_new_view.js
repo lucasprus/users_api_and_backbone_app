@@ -15,26 +15,22 @@ define(['backbone', 'jquery-ui', 'text!templates/user_new.html'], function (Back
             });
             return this;
         },
-        save: function () {
-            var form = this.el.getElementsByTagName('form')[0];
-            app.saveUser({
-                username: form.username.value,
-                name: form.name.value,
-                email: form.email.value,
-                password: form.password.value,
-                birthday: form.birthday.value,
-                gender: form.gender[1].checked ? 'F' : 'M',
-                bio: form.bio.value
-            });
-        },
-        cancel: function () {
-            app.navigate('users', {
-                trigger: true
-            });
-        },
         events: {
-            'click button.save_new': 'save',
-            'click button.cancel_new': 'cancel'
+            'click button.save_new': function () {
+                var form = this.el.getElementsByTagName('form')[0];
+                this.trigger('user_new_view:click:button.save_new', {
+                    username: form.username.value,
+                    name: form.name.value,
+                    email: form.email.value,
+                    password: form.password.value,
+                    birthday: form.birthday.value,
+                    gender: form.gender[1].checked ? 'F' : 'M',
+                    bio: form.bio.value
+                });
+            },
+            'click button.cancel_new': function () {
+                this.trigger('user_new_view:click:button.cancel_new');
+            }
         }
     });
 });

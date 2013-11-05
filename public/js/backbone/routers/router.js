@@ -76,6 +76,27 @@ define([
                     this.listenTo(this.user, 'model:log', console.log);
                     this.listenTo(this.users, 'collection:log', console.log);
                 }
+                // Handle behaviour in views
+                this.listenTo(this.userView, 'user_view:click:button.edit', function () {
+                    this.userEditView.render();
+                });
+                this.listenTo(this.userView, 'user_view:click:button.delete', function () {
+                    this.deleteUser();
+                });
+                this.listenTo(this.userEditView, 'user_edit_view:click:button.save', function (obj) {
+                    this.saveUser(obj);
+                });
+                this.listenTo(this.userEditView, 'user_edit_view:click:button.cancel', function () {
+                    this.userView.render();
+                });
+                this.listenTo(this.userNewView, 'user_new_view:click:button.save_new', function (obj) {
+                    this.saveUser(obj);
+                });
+                this.listenTo(this.userNewView, 'user_new_view:click:button.cancel_new', function () {
+                    this.navigate('users', {
+                        trigger: true
+                    });
+                });
             },
             routes: {
                 'users/new': 'newUser',
