@@ -230,17 +230,6 @@ results
 
 npm-debug.log
 node_modules
-public/backbone.html
-public/backbone_collection.html
-public/backbone_router.html
-public/backbone_view.html
-
-public/js/backbone.js
-public/js/backbone_collection.js
-public/js/backbone_router.js
-public/js/backbone_router_with_comments.js
-public/js/backbone_view.js
-public/js/main2.js
 public/js/main-built.js
 
 TODO.txt

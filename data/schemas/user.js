@@ -1,7 +1,50 @@
-var mongoose = require('mongoose');
-var request = require('request');
-var emailRegexp = /.+\@.+\..+/;
-var alphaNumericRegexp = /^[a-z0-9]+$/i;
+var mongoose = require('mongoose'),
+    request = require('request'),
+    emailRegexp = /.+\@.+\..+/,
+    alphaNumericRegexp = /^[a-z0-9]+$/i,
+    TIMESPAN_YEAR = 31536000000,
+    TIMESPAN_18_YEARS = 18 * TIMESPAN_YEAR;
+
+function validate_18_years_old_or_more(date) {
+    if (!date) {
+        return;
+    }
+    return (Date.now() - date.getTime()) > TIMESPAN_18_YEARS;
+}
+
+function twitterHandleExists(handle, done) {
+    if (!handle) {
+        return;
+    }
+    request('http://twitter.com/' + encodeURIComponent(handle), function (err, res) {
+        if (err) {
+            console.error(err);
+            return done(false);
+        }
+        if (res.statusCode > 299) {
+            done(false);
+        } else {
+            done(true);
+        }
+    });
+}
+
+function filterTwitterHandle(handle) {
+    if (!handle) {
+        return;
+    }
+    handle = handle.trim();
+    if (handle.indexOf('@') === 0) {
+        handle = handle.substring(1);
+    }
+    return handle;
+}
+
+function range(l, r) {
+    return function (a) {
+        return a.length >= l && a.length <= r;
+    };
+}
 var UserSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -98,46 +141,3 @@ UserSchema.virtual('twitter_url')
         .exec(callback);
 }; */
 module.exports = UserSchema;
-var TIMESPAN_YEAR = 31536000000;
-var TIMESPAN_18_YEARS = 18 * TIMESPAN_YEAR;
-
-function validate_18_years_old_or_more(date) {
-    if (!date) {
-        return;
-    }
-    return (Date.now() - date.getTime()) > TIMESPAN_18_YEARS;
-}
-
-function twitterHandleExists(handle, done) {
-    if (!handle) {
-        return;
-    }
-    request('http://twitter.com/' + encodeURIComponent(handle), function (err, res) {
-        if (err) {
-            console.error(err);
-            return done(false);
-        }
-        if (res.statusCode > 299) {
-            done(false);
-        } else {
-            done(true);
-        }
-    });
-}
-
-function filterTwitterHandle(handle) {
-    if (!handle) {
-        return;
-    }
-    handle = handle.trim();
-    if (handle.indexOf('@') === 0) {
-        handle = handle.substring(1);
-    }
-    return handle;
-}
-
-function range(l, r) {
-    return function (a) {
-        return a.length >= l && a.length <= r;
-    };
-}

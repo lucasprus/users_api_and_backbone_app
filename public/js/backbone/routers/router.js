@@ -9,9 +9,9 @@ define([
     function (User, Users, UserView, UserEditView, UserNewView, UsersView) {
         return Backbone.Router.extend({
             initialize: function (options) {
+                var _this = this;
                 console.log('Creating Router');
                 console.info('We\'re in app!');
-                var _this = this;
                 this.El = document.getElementById('container');
                 this.saveUser = function (attributes) {
                     console.log('Saving user');
@@ -67,6 +67,15 @@ define([
                     collection: this.users,
                     el: this.El
                 });
+                if (options && options.log === true) {
+                    // Listen on logging events triggered in views, model and collection
+                    this.listenTo(this.userView, 'view:log', console.log);
+                    this.listenTo(this.userEditView, 'view:log', console.log);
+                    this.listenTo(this.userNewView, 'view:log', console.log);
+                    this.listenTo(this.usersView, 'view:log', console.log);
+                    this.listenTo(this.user, 'model:log', console.log);
+                    this.listenTo(this.users, 'collection:log', console.log);
+                }
             },
             routes: {
                 'users/new': 'newUser',

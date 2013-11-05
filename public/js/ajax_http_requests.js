@@ -7,19 +7,19 @@ $(function () {
         bio: 'Lorem Ipsum',
         gender: 'm',
         birthday: '08/27/1983'
-    };
-    var deleteUser = {
-        '_method': 'DELETE'
-    };
-    var putUser = {
-        name: 'Lucas Prus',
-        email: 'lucas.prus2@gmail.com',
-        password: 'lucasprus',
-        bio: 'Web Developer',
-        gender: 'm',
-        birthday: '08/27/1983',
-        '_method': 'PUT'
-    };
+    },
+        deleteUser = {
+            '_method': 'DELETE'
+        },
+        putUser = {
+            name: 'Lucas Prus',
+            email: 'lucas.prus2@gmail.com',
+            password: 'lucasprus',
+            bio: 'Web Developer',
+            gender: 'm',
+            birthday: '08/27/1983',
+            '_method': 'PUT'
+        };
     $('button.get').click(function () {
         $.get('http://localhost:3000/users/lucasprus2', function (data, status) {
             console.info('Status: ' + status);

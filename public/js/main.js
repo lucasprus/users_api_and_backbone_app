@@ -3,7 +3,8 @@ requirejs.config({
     paths: {
         'jquery': 'jquery-1.10.2.min',
         'jquery-ui': 'jquery-ui-1.10.3.custom.min',
-        'backbone_files': '../backbone'
+        'backbone_files': '../backbone',
+        'templates': '../backbone/templates'
     },
     //Remember: only use shim config for non-AMD scripts,
     //scripts that do not already call define(). The shim
@@ -30,7 +31,9 @@ requirejs(['backbone_files/routers/router'],
         jQuery(function () {
             // new Router();
             // var app = new Router();
-            app = new Router();
+            app = new Router({
+                log: true
+            });
             Backbone.history.start();
             // Backbone.history.start({pushState: true});
         });

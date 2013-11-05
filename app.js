@@ -13,6 +13,7 @@ var logFile = fs.createWriteStream('./access.log', {
 app.use(express.logger({
     stream: logFile
 }));
+app.use(express.compress());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 // app.all('*', express.basicAuth('username', 'password'));

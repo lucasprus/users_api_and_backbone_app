@@ -1,13 +1,13 @@
 define(['backbone', 'backbone_files/views/user_view'], function (Backbone, UserView) {
     return Backbone.View.extend({
         initialize: function () {
-            console.log('Creating UsersView');
+            this.trigger('view:log', 'Creating UsersView');
             // this.listenTo(this.collection, "change", this.render);
             // this.listenTo(this.collection, "add", this.render);
             // this.render();
         },
         render: function () {
-            console.log('Rendering UsersView');
+            this.trigger('view:log', 'Rendering UsersView');
             var ul = document.createElement("ul");
             this.collection.each(function (user) {
                 $('<li><a href="#users/' + encodeURIComponent(user.get('username')) + '">' + user.get('username') + '</a></li>').appendTo(ul);
@@ -22,7 +22,7 @@ define(['backbone', 'backbone_files/views/user_view'], function (Backbone, UserV
             return this;
         },
         renderDetailView: function () {
-            console.log('Rendering detailed UsersView');
+            this.trigger('view:log', 'Rendering detailed UsersView');
             this.el.innerHTML = '';
             var _thisEl = this.el;
             this.collection.each(function (user) {

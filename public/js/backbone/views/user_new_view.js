@@ -1,12 +1,12 @@
-define(['backbone', 'jquery-ui'], function (Backbone) {
+define(['backbone', 'jquery-ui', 'text!templates/user_new.html'], function (Backbone, jqueryUI, userNewTemplate) {
     return Backbone.View.extend({
-        template: _.template('<form><table><tr><td><label for="username">Username:</label></td><td><input type="text" name="username"/></td></tr><tr><td><label for="name">Name:</label></td><td><input type="text" name="name"/></td></tr><tr><td><label for="email">Email:</label></td><td><input type="text" name="email"/></td></tr><tr><td><label for="password">Password:</label></td><td><input type="text" name="password"/></td></tr><tr><td><label for="birthday">Birthday:</label></td><td><input type="text" id="datepicker" name="birthday"/></td></tr><tr><td><label>Gender:</label></td><td>Male:<input type="radio" name="gender" value="M" checked="checked"/>Female:<input type="radio" name="gender" value="F"/></td></tr><tr><td><label for="bio">Bio:</label></td><td><textarea name="bio"></textarea></td></tr></table></form><button class="save_new" type="button">Save</button><button class="cancel_new" type="button">Cancel</button>'),
+        template: _.template(userNewTemplate),
         initialize: function () {
-            console.log('Creating UserNewView');
+            this.trigger('view:log', 'Creating UserNewView');
             // this.render();
         },
         render: function () {
-            console.log('Rendering UserNewView');
+            this.trigger('view:log', 'Rendering UserNewView');
             this.$el.html(this.template());
             jQuery("#datepicker").datepicker({
                 changeMonth: true,

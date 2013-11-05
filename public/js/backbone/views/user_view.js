@@ -1,10 +1,10 @@
-define(['backbone'], function (Backbone) {
+define(['backbone', 'text!templates/user.html', 'text!templates/user_no_edit.html'], function (Backbone, userTemplate, userNoEditTemplate) {
     return Backbone.View.extend({
         tagName: "p",
-        template: _.template('<span>Username: <%= username %></span><br /><span>Name: <%= name %></span><br /><span>Email: <%= email %></span><br /><span>Password: <%= password %></span><br /><span>Birthday: <%= new Date(birthday).toLocaleDateString() %></span><br /><span>Gender: <%= gender %></span><br /><span>Bio: <%= bio %></span><br /><button class="edit">Edit</button><button class="delete">Delete</button>'),
-        template_no_edit: _.template('<span>Username: <%= username %></span><br /><span>Name: <%= name %></span><br /><span>Email: <%= email %></span><br /><span>Password: <%= password %></span><br /><span>Birthday: <%= new Date(birthday).toLocaleDateString() %></span><br /><span>Gender: <%= gender %></span><br /><span>Bio: <%= bio %></span>'),
+        template: _.template(userTemplate),
+        template_no_edit: _.template(userNoEditTemplate),
         initialize: function (options) {
-            console.log('Creating UserView');
+            this.trigger('view:log', 'Creating UserView');
             if (options && options.no_edit) {
                 this.no_edit = options.no_edit;
             }
@@ -12,7 +12,7 @@ define(['backbone'], function (Backbone) {
             // this.render();
         },
         render: function () {
-            console.log('Rendering UserView');
+            this.trigger('view:log', 'Rendering UserView');
             if (this.no_edit) {
                 this.$el.html(this.template_no_edit(this.model.attributes));
             } else {
