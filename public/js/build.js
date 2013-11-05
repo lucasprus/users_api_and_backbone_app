@@ -4,7 +4,8 @@
         "jquery": "jquery-1.10.2.min",
         "jquery-ui": "jquery-ui-1.10.3.custom.min",
         "backbone_files": "../backbone",
-        "main": "../main"
+        "main": "../main",
+        "templates": "../backbone/templates"
     },
     "shim": {
         "backbone": {
