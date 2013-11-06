@@ -2,7 +2,7 @@ define(['backbone', '../models/user'], function (Backbone, User) {
     return Backbone.Collection.extend({
         model: User,
         initialize: function (models, options) {
-            this.trigger('collection:log', 'Creating Users');
+            console.log('Creating Users');
         },
         url: function () {
             var page = this.page || 0;

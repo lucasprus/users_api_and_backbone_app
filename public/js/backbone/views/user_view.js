@@ -4,7 +4,7 @@ define(['backbone', 'text!templates/user.html', 'text!templates/user_no_edit.htm
         template: _.template(userTemplate),
         template_no_edit: _.template(userNoEditTemplate),
         initialize: function (options) {
-            this.trigger('view:log', 'Creating UserView');
+            console.log('Creating UserView');
             if (options && options.no_edit) {
                 this.no_edit = options.no_edit;
             }
@@ -12,7 +12,7 @@ define(['backbone', 'text!templates/user.html', 'text!templates/user_no_edit.htm
             // this.render();
         },
         render: function () {
-            this.trigger('view:log', 'Rendering UserView');
+            console.log('Rendering UserView');
             if (this.no_edit) {
                 this.$el.html(this.template_no_edit(this.model.attributes));
             } else {

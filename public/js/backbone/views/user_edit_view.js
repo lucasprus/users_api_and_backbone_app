@@ -2,12 +2,12 @@ define(['backbone', 'jquery-ui', 'text!templates/user_edit.html'], function (Bac
     return Backbone.View.extend({
         template: _.template(userEditTemplate),
         initialize: function () {
-            this.trigger('view:log', 'Creating UserEditView');
+            console.log('Creating UserEditView');
             // this.render();
             // this.listenTo(this.model, "change", this.render);
         },
         render: function () {
-            this.trigger('view:log', 'Rendering UserEditView');
+            console.log('Rendering UserEditView');
             this.$el.html(this.template(this.model.attributes));
             jQuery("#datepicker").datepicker({
                 changeMonth: true,
