@@ -5,11 +5,12 @@ define(['backbone', '../models/user'], function (Backbone, User) {
             console.log('Creating Users');
         },
         url: function () {
-            var page = this.page || 0;
-            return '/users?page=' + page;
+            return '/users?page=' + (this.page || 1);
         },
         parse: function (response) {
-            this.lastPage = response.lastPage;
+            this.count = response.count;
+            this.maxUsersPerPage = response.maxUsersPerPage;
+            this.lastPage = this.page * this.maxUsersPerPage >= this.count;
             return response.users;
         }
     });

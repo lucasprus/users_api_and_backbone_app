@@ -118,7 +118,7 @@ define([
                 });
             },
             usersIndex: function (page) {
-                this.users.page = (page && parseInt(page, 10)) || 0;
+                this.users.page = (page && parseInt(page, 10)) || 1;
                 var _this = this;
                 this.users.fetch({
                     success: function (users) {

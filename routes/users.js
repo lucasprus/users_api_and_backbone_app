@@ -7,7 +7,7 @@ var async = require('async');
 var maxUsersPerPage = 5;
 module.exports = function (app) {
     app.get('/users', function (req, res, next) {
-        var page = (req.query.page && parseInt(req.query.page, 10)) || 0;
+        var page = (req.query.page && parseInt(req.query.page, 10)) || 1;
         async.parallel([
                 function (next) {
                     User.count(next);
@@ -15,7 +15,7 @@ module.exports = function (app) {
                 function (next) {
                     User.find({})
                         .sort('name')
-                        .skip(page * maxUsersPerPage)
+                        .skip((page - 1) * maxUsersPerPage)
                         .limit(maxUsersPerPage)
                         .exec(next);
                 }
@@ -27,11 +27,11 @@ module.exports = function (app) {
                     return next(err);
                 }
                 var count = results[0],
-                    users = results[1],
-                    lastPage = (page + 1) * maxUsersPerPage >= count;
+                    users = results[1];
                 res.json({
                     users: users,
-                    lastPage: lastPage
+                    count: count,
+                    maxUsersPerPage: maxUsersPerPage
                 });
             });
     });
