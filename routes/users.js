@@ -14,7 +14,7 @@ module.exports = function (app) {
                 },
                 function (next) {
                     User.find({})
-                        .sort('name')
+                        .sort('username')
                         .skip((page - 1) * maxUsersPerPage)
                         .limit(maxUsersPerPage)
                         .exec(next);
@@ -68,39 +68,36 @@ module.exports = function (app) {
         });
     });
     app.put('/users/:name', loadUser, function (req, res) {
-        User.findOne({
-            username: req.user.username
-        }, function (err, user) {
+        req.user.set('name', req.body.name);
+        req.user.set('email', req.body.email);
+        req.user.set('password', req.body.password);
+        req.user.set('birthday', req.body.birthday);
+        req.user.set('gender', req.body.gender);
+        req.user.set('bio', req.body.bio);
+        req.user.save(function (err) {
             if (err) {
+                if (err.code === 11000 || err.code === 11001) {
+                    return res.json({
+                        error: {
+                            message: 'Conflict'
+                        }
+                    }, 409);
+                }
+                if (err.name === 'ValidationError') {
+                    return res.json({
+                        error: {
+                            message: Object.keys(err.errors).map(function (errField) {
+                                return err.errors[errField].message;
+                            }).join('. ')
+                        }
+                    }, 406);
+                }
                 return res.json({
                     error: err
                 }, 500);
             }
-            user.save(function (err) {
-                if (err) {
-                    if (err.code === 11000 || err.code === 11001) {
-                        return res.json({
-                            error: {
-                                message: 'Conflict'
-                            }
-                        }, 409);
-                    }
-                    if (err.name === 'ValidationError') {
-                        return res.json({
-                            error: {
-                                message: Object.keys(err.errors).map(function (errField) {
-                                    return err.errors[errField].message;
-                                }).join('. ')
-                            }
-                        }, 406);
-                    }
-                    return res.json({
-                        error: err
-                    }, 500);
-                }
-                return res.json({
-                    success: 'User updated'
-                });
+            return res.json({
+                success: 'User updated'
             });
         });
     });
