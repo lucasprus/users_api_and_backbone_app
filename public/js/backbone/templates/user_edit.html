@@ -29,7 +29,7 @@
                 <label for="birthday">Birthday:</label>
             </td>
             <td>
-                <input type="text" id="datepicker" name="birthday" value="<%=new Date(birthday).toLocaleDateString()  %>" />
+                <input type="text" id="datepicker" name="birthday" value="<%=$.datepicker.formatDate('yy-mm-dd', new Date(birthday)) %>" />
             </td>
         </tr>
         <tr>

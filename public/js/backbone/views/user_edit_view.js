@@ -12,7 +12,8 @@ define(['backbone', 'jquery-ui', 'text!templates/user_edit.html'], function (Bac
             jQuery("#datepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "-100:-18"
+                yearRange: "-100:c",
+                dateFormat: "yy-mm-dd"
             });
             return this;
         },
