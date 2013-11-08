@@ -4,7 +4,8 @@ requirejs.config({
         'jquery': 'jquery-1.10.2.min',
         'jquery-ui': 'jquery-ui-1.10.3.custom.min',
         'backbone_files': '../backbone',
-        'templates': '../backbone/templates'
+        'templates': '../backbone/templates',
+        'helpers': '../helpers'
     },
     //Remember: only use shim config for non-AMD scripts,
     //scripts that do not already call define(). The shim

@@ -1,4 +1,4 @@
-define(['backbone', 'text!templates/user.html', 'text!templates/user_no_edit.html'], function (Backbone, userTemplate, userNoEditTemplate) {
+define(['backbone', 'jquery-ui', 'text!templates/user.html', 'text!templates/user_no_edit.html'], function (Backbone, jqueryUI, userTemplate, userNoEditTemplate) {
     return Backbone.View.extend({
         tagName: "p",
         template: _.template(userTemplate),

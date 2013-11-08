@@ -1,51 +1,47 @@
-define(['backbone', 'backbone_files/views/user_view'], function (Backbone, UserView) {
+define(['backbone', './users_default_list', './users_detailed_list', './users_pagination', './users_view_switch', 'helpers/cookie'], function (Backbone, UsersDefaultList, UsersDetailedList, UsersPagination, UsersViewSwitch, cookieHelper) {
     return Backbone.View.extend({
         initialize: function () {
             console.log('Creating UsersView');
             // this.listenTo(this.collection, "change", this.render);
             // this.listenTo(this.collection, "add", this.render);
             // this.render();
+            // console.info(cookieHelper.getItem('view'));
+            this.usersDefaultList = new UsersDefaultList({
+                collection: this.collection
+            });
+            this.usersDetailedList = new UsersDetailedList({
+                collection: this.collection,
+                el: this.usersDefaultList.el
+            });
+            this.usersPagination = new UsersPagination({
+                collection: this.collection
+            });
+            this.usersViewSwitch = new UsersViewSwitch();
         },
         render: function () {
-            var ul = document.createElement("ul");
             console.log('Rendering UsersView');
-            this.collection.each(function (user) {
-                $('<li><a href="#users/' + encodeURIComponent(user.get('username')) + '">' + user.get('username') + '</a></li>').appendTo(ul);
-            });
-            this.el.innerHTML = '<ul>' + ul.innerHTML + '</ul>';
-            this.renderPagination();
-            return this;
-        },
-        renderDetailView: function () {
-            var _thisEl = this.el;
-            console.log('Rendering detailed UsersView');
             this.el.innerHTML = '';
-            this.collection.each(function (user) {
-                _thisEl.appendChild(new UserView({
-                    model: user,
-                    no_edit: true
-                }).render().el);
-            });
-            this.renderPagination();
+            var doc = document.createDocumentFragment();
+            doc.appendChild(this.usersViewSwitch.render().el);
+            if (cookieHelper.getItem('view') === 'detailed') {
+                doc.appendChild(this.usersDetailedList.render().el);
+            } else {
+                doc.appendChild(this.usersDefaultList.render().el);
+            }
+            doc.appendChild(this.usersPagination.render().el);
+            this.el.appendChild(doc);
             return this;
         },
-        renderPagination: function () {
-            var i,
-                j,
-                txt = '',
-                count = this.collection.count,
-                maxUsersPerPage = this.collection.maxUsersPerPage,
-                page = this.collection.page;
-            if (page > 1) {
-                txt += '<a href="#users/page' + (page - 1) + '">Previous</a>&nbsp;';
+        events: {
+            'change #view_switch :radio': function (event) {
+                var v = event.target.value;
+                cookieHelper.setItem('view', v, 150);
+                if (v === 'detailed') {
+                    this.usersDetailedList.render();
+                } else {
+                    this.usersDefaultList.render();
+                }
             }
-            for (i = 0, j = 1; i < count; i += maxUsersPerPage, j += 1) {
-                txt += '&nbsp;<a  href="#users/page' + j + '">' + j + '</a>&nbsp;';
-            }
-            if (!this.collection.lastPage) {
-                txt += '&nbsp;<a  href="#users/page' + (page + 1) + '">Next</a>';
-            }
-            this.el.innerHTML += txt;
         }
     });
 });

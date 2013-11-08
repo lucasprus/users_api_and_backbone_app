@@ -5,7 +5,8 @@
         "jquery-ui": "jquery-ui-1.10.3.custom.min",
         "backbone_files": "../backbone",
         "main": "../main",
-        "templates": "../backbone/templates"
+        "templates": "../backbone/templates",
+        "helpers": "../helpers"
     },
     "shim": {
         "backbone": {
